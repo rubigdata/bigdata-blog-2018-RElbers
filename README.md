@@ -1,1 +1,1 @@
-[eeh](how_do_i_blog.md)
+[Click here to read the blog](how_do_i_blog.md)
