@@ -2,7 +2,7 @@
 Map-Reduce works by mapping the input and then reducing it. The computations are distributed over many different systems. This distribution is done by the Map-Reduce framework and is hidden to the user. The Mapper recieves a part of the input, maps it to a value and sends it and a key to the Reducer. Or rather the framework takes all the values belonging to a particular key and sends it to the Reducer. The Reducer receives these values for a certain key and combines it to produce another value. In our WordCount example the Mapper simply writes the value 1 for every word. The Reducer sums up all the 1s of a word and produces a total count for that word.   
  
 ## Mapper
-```
+```java
 public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
@@ -22,7 +22,7 @@ public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritab
 ```
 
 ## Reducer
-```
+```java
 public static class IntSumReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
     private IntWritable result = new IntWritable();
 
