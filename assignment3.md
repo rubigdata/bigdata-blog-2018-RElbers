@@ -1,4 +1,4 @@
-## HELLO SPARK
+## SPARK
 
 You might think that garbage collection has something to do with memory management, but that's wrong. Garbage collection is what happens when you let a database loose in the wild. 
 In order to properly analyse the dataset we first need to remove the garbage.		
