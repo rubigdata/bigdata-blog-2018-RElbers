@@ -77,7 +77,7 @@ goldSpentOnSwords
 
 It's quite annoying I have to restart the kernel every time I change the computation graph :(
 First we map to get the material and gold. Then we can reduce by key and window to sum the gold spent per material for a 10 second window
-We can't just sort the stream, but we need to sort every batch independently. To do this we can call transform to use the underlying rdd. After sorting we take the top 3. Take returns an array and not an rdd and transform needs a function RDD -> RDD. So we parallelize the array. Finally we print the top 3.
+We can't just sort the stream, but we need to sort every batch independently. To do this we can call transform to use the underlying rdd. After sorting we take the top 3. Take returns an array and not an rdd and transform needs a function RDD -> RDD. So we parallelize the array. Finally we print the top 3. It seems like most money is spent on dragon and rune items 🤔🤔🤔🤔
 
 
 ```scala
