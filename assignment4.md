@@ -9,20 +9,20 @@ Once again we would like you to write a blogpost on how you worked on the notebo
 Your blog post should posted on your main blog, as before. There is no seperate assignment repository for this assignment.
 
 
-Q: What factors should you consider when setting the window size?
+## Q: What factors should you consider when setting the window size?
 
-> The operations are processed in batches. The window size determines how many items are in a batch.
+> The operations are processed in batches. The window size determines how many items are in a batch. The choice of window size depends on how much memory you are able to use and how fast you want to have results. A smaller batch will have less latency.
 
 
 ```scala
 def parseTransaction (x: String) = {
    def words = x.split("\\s+")
-  (words(0),words(1),words(2).toInt)
+  (words(0),words(1),words(5).toInt)
 }
 ```
 
 
-How many rune items were sold?
+## How many rune items were sold?
 
 ```scala
 def runes = transactions.filter(_._1 =="rune").map(x=>1).reduce((a,b)=> a+b)
@@ -32,7 +32,7 @@ runes
 > 42
 
 
-How many of each item type was sold?
+## How many of each item type was sold?
     
 ```scala
 def numSoldPerType = transactions.map((x) => (x._2, x._3)).reduceByKey((a,b) => (a+b)).cache()
@@ -64,10 +64,43 @@ numSoldPerType.toDF().show()
 > +----------+--------+ <br />
 
 
-How much gold was spent buying swords?
+## How much gold was spent buying swords?
     
 ```scala
 def goldSpentOnSwords = transactions.filter(_._2 =="sword").map(_._3).reduce((a,b)=>(a+b))
 goldSpentOnSwords
 ```
 > 3262778
+
+
+## For a 10 second window, what is the top 
+
+It's quite annoying I have to restart the kernel every time I change the computation graph :(
+
+```scala
+import org.apache.spark.streaming._
+val sc2 = new StreamingContext(sparkContext, Seconds(5))
+val textStream2 = sc2.socketTextStream("146.185.183.168", 9999)
+```
+
+```scala
+def parseTransaction (x: String) = {
+   def words = x.split("\\s+")
+  (words(0),words(1),words(5).toInt)
+}
+
+def pairs = textStream2.map(parseTransaction)
+                   .map((x) => (x._1, x._3))
+def goldPerMaterial = pairs.reduceByKeyAndWindow((a:Int,b:Int) => (a+b), Seconds(10), Seconds(5))
+def ordered = goldPerMaterial.transform(_.sortBy(_._2, ascending=false))
+def top3Materials = ordered.take(3)
+
+top3Materials.print
+```
+
+
+```scala
+sc2.start()
+sc2.awaitTerminationOrTimeout(20000)
+```
+
