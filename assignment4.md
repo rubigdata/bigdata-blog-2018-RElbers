@@ -22,7 +22,7 @@ def parseTransaction (x: String) = {
 ```
 
 
-    How many rune items were sold?
+How many rune items were sold?
 
 ```scala
 def runes = transactions.filter(_._1 =="rune").map(x=>1).reduce((a,b)=> a+b)
@@ -32,7 +32,7 @@ runes
 > 42
 
 
-    How many of each item type was sold?
+How many of each item type was sold?
     
 ```scala
 def numSoldPerType = transactions.map((x) => (x._2, x._3)).reduceByKey((a,b) => (a+b)).cache()
@@ -64,7 +64,7 @@ numSoldPerType.toDF().show()
 > +----------+--------+ <br />
 
 
-    How much gold was spent buying swords?
+How much gold was spent buying swords?
     
 ```scala
 def goldSpentOnSwords = transactions.filter(_._2 =="sword").map(_._3).reduce((a,b)=>(a+b))
