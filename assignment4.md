@@ -73,9 +73,12 @@ goldSpentOnSwords
 > 3262778
 
 
-## For a 10 second window, what is the top 
+## For a 10 second window, give the top 3 materials by total amount of gold spent.
 
 It's quite annoying I have to restart the kernel every time I change the computation graph :(
+First we map to get the material and gold. Then we can reduce by key and window to sum the gold spent per material for a 10 second window
+We can't just sort the stream, but we need to sort every batch independently. To do this we can call transform to use the underlying rdd. After sorting we take the top 3. Take returns an array and not an rdd and transform needs a function RDD -> RDD. So we parallelize the array. Finally we print the top 3.
+
 
 ```scala
 import org.apache.spark.streaming._
@@ -92,12 +95,13 @@ def parseTransaction (x: String) = {
 def pairs = textStream2.map(parseTransaction)
                    .map((x) => (x._1, x._3))
 def goldPerMaterial = pairs.reduceByKeyAndWindow((a:Int,b:Int) => (a+b), Seconds(10), Seconds(5))
-def ordered = goldPerMaterial.transform(_.sortBy(_._2, ascending=false))
-def top3Materials = ordered.take(3)
+def top3Materials = goldPerMaterial.transform({ rdd =>  
+    def sorted = rdd.sortBy(_._2, ascending=false)
+    sc.parallelize(sorted.take(3))
+})
 
-top3Materials.print
+top3Materials.print()
 ```
-
 
 ```scala
 sc2.start()
