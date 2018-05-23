@@ -33,30 +33,30 @@ runes
 def numSoldPerType = transactions.map((x) => (x._2, x._3)).reduceByKey((a,b) => (a+b)).cache()
 numSoldPerType.toDF().show()
 ```
-> +----------+--------+
-> |        _1|      _2|
-> +----------+--------+
-> | platebody| 4642198|
-> |   halberd| 4962105|
-> |    gloves| 8608193|
-> | longsword| 3454993|
-> |      mace| 8807999|
-> |     boots| 5191413|
-> | battleaxe| 5051397|
-> |   pickaxe| 5962298|
-> |      helm| 3672317|
-> | platelegs| 5402413|
-> |plateskirt| 6528786|
-> |  scimitar| 3405492|
-> | warhammer|11954607|
-> |    dagger| 5872939|
-> |    shield| 5203866|
-> |       axe| 1203987|
-> |     claws| 7132943|
-> | chainbody| 7379304|
-> |     sword| 3262778|
-> |     spear| 6910623|
-> +----------+--------+
+> +----------+--------+ <br />
+> |        _1|      _2| <br />
+> +----------+--------+ <br />
+> | platebody| 4642198| <br />
+> |   halberd| 4962105| <br />
+> |    gloves| 8608193| <br />
+> | longsword| 3454993| <br />
+> |      mace| 8807999| <br />
+> |     boots| 5191413| <br />
+> | battleaxe| 5051397| <br />
+> |   pickaxe| 5962298| <br />
+> |      helm| 3672317| <br />
+> | platelegs| 5402413| <br />
+> |plateskirt| 6528786| <br />
+> |  scimitar| 3405492| <br />
+> | warhammer|11954607| <br />
+> |    dagger| 5872939| <br />
+> |    shield| 5203866| <br />
+> |       axe| 1203987| <br />
+> |     claws| 7132943| <br />
+> | chainbody| 7379304| <br />
+> |     sword| 3262778| <br />
+> |     spear| 6910623| <br />
+> +----------+--------+ <br />
 
 ```scala
 def goldSpentOnSwords = transactions.filter(_._2 =="sword").map(_._3).reduce((a,b)=>(a+b))
