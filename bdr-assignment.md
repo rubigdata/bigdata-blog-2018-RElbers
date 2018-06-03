@@ -54,8 +54,10 @@ val indexer = new StringIndexer()
   .setOutputCol("function_index")
   .fit(clicks_train)
 
-clicks_train = indexer.transform(clicks_train)
-clicks_train = clicks_train.groupBy("candidate_number","function_index").agg(sum("ecom_action") as "ecom_action")
+val clicks_train_indexed = indexer.transform(clicks_train)
+val clicks_val_indexed = indexer.transform(clicks_val)
+val grouped_train = clicks_train_indexed.groupBy("candidate_number","function_index").agg(sum("ecom_action") as "ecom_action")
+val grouped_val = clicks_val_indexed.groupBy("candidate_number","function_index").agg(sum("ecom_action") as "ecom_action")
 
 val als = new ALS()
   .setMaxIter(5)
@@ -65,8 +67,6 @@ val als = new ALS()
   .setItemCol("function_index")
   .setRatingCol("ecom_action")
 ```
-
-
 
 
 
