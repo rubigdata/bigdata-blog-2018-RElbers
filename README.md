@@ -4,4 +4,6 @@
 
 [Assignment 4](assignment4.md)
 
+[BDR assignment](bdr-assignment.md)
+ 	  
 [Final Project](final_project.md)
