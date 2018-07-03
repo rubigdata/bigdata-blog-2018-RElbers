@@ -150,7 +150,7 @@ Now that we have the number of sites using bootstrap and the total, we can calcu
   }
 ```
 
-Next we will need to map the TLD's to proper country names. I have created a python script that parses https://simple.wikipedia.org/wiki/Country_code_top-level_domain and prints the map we need. I will not explain the code here, but the script is [here](https://raw.githubusercontent.com/rubigdata/bigdata-blog-2018-RElbers/master/final_project/tld_to_country.py). The result is the map below:
+Next we will need to map the TLD's to proper country names. I have created a python script that parses https://simple.wikipedia.org/wiki/Country_code_top-level_domain and prints the map we need. I will not explain the code, but the script is [here](https://raw.githubusercontent.com/rubigdata/bigdata-blog-2018-RElbers/master/final_project/tld_to_country.py). The result is the map below:
 ```scala
   var tldToCountry: Map[String, String] = Map[String, String]()
   tldToCountry += "ac" -> "Ascension Island"
