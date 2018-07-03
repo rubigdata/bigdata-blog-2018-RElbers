@@ -7,6 +7,8 @@ There are three steps to this process:
 2. Find the total number of websites per country.
 3. Calculate the ratio (bootstrap / total) per country.
 
+The .scala code is [here](https://raw.githubusercontent.com/rubigdata/bigdata-blog-2018-RElbers/master/final_project/scala/src/main/scala/EntryPoint.scala)
+
 ## Helper functions
 First we need to parse the WARC file. At this point we can already filter on top level domains (TLD) that belong to countries. Lets define a function that will extract the html content from a WarcRecord. 
 
@@ -148,7 +150,7 @@ Now that we have the number of sites using bootstrap and the total, we can calcu
   }
 ```
 
-Next we will need to map the TLD's to proper country names. I have created a python script that parses https://simple.wikipedia.org/wiki/Country_code_top-level_domain and prints the map we need. I will not explain the code here, but the script is in the repository. The result is the map below:
+Next we will need to map the TLD's to proper country names. I have created a python script that parses https://simple.wikipedia.org/wiki/Country_code_top-level_domain and prints the map we need. I will not explain the code, but the script is [here](https://raw.githubusercontent.com/rubigdata/bigdata-blog-2018-RElbers/master/final_project/tld_to_country.py). The result is the map below:
 ```scala
   var tldToCountry: Map[String, String] = Map[String, String]()
   tldToCountry += "ac" -> "Ascension Island"
