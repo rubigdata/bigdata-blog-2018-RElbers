@@ -252,8 +252,8 @@ var chart = new google.visualization.GeoChart(document.getElementById('regions_d
 chart.draw(data, options);
 }
 
-document.getElementsByClassName("main_content")[0].style.maxWidth = "1280px"
-document.getElementsByClassName("main_content")[0].style.padding = "8px"
+document.getElementById("main_content").style.maxWidth = "1280px"
+document.getElementById("main_content").style.padding = "8px"
 </script>
 
 <div id="regions_div" style="width: 1280px; height: 720px;"></div>
