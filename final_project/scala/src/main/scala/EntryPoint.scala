@@ -34,7 +34,7 @@ object EntryPoint {
 
     try {
       val result = start(infile, spark.sparkContext)
-      val resultString = result.map(x => s""""${x._1}\", \"${x._2}"""").mkString("\n")
+      val resultString = result.map(x => s""""${x._1}\" \t \"${x._2}"""").mkString("\n")
 
       // Print results
       println("\n\n\n" + resultString + "\n\n\n")
