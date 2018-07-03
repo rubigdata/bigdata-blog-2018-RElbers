@@ -7,7 +7,7 @@ There are three steps to this process:
 2. Find the total number of websites per country.
 3. Calculate the ratio (bootstrap / total) per country.
 
-The .scala code is [here](https://raw.githubusercontent.com/rubigdata/bigdata-blog-2018-RElbers/master/final_project/scala/src/main/scala/EntryPoint.scala)
+The .scala code is [here](https://raw.githubusercontent.com/rubigdata/bigdata-blog-2018-RElbers/master/final_project/scala/src/main/scala/EntryPoint.scala). I don't like using the spark notebook, so I worked using a Scala project in IntelliJ IDEA with the Scala plugin. The build tool for Scala is sbt. It is responsible for compiling and deploying the application. For the program to work on the server we will package its dependencies together in the same .jar. We can use the sbt-assembly plugin to do this. My program has dependencies to spark, jwat-warc and pig. These dependencies are defined in the `build.sbt` file. The spark and pig dependencies are marked as `provided`, since they are available on the server. Apparently they will cause a conflict when executing `sbt assembly` if you don't add ` % "provided"`. Add the following line to `build.sbt` to set the .jar name: `assemblyJarName in assembly := "app.jar"`. Now you will need to add an `assembly.sbt` file in the `project` folder and add the following line to it: `addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.7")` to load the assembly plugin. To build the .jar, run `sbt assembly` in the folder where the build.sbt file is. To execute the .jar on the server run `spark-submit --master yarn --deploy-mode cluster /path/to/app.jar`.
 
 ## Helper functions
 First we need to parse the WARC file. At this point we can already filter on top level domains (TLD) that belong to countries. Lets define a function that will extract the html content from a WarcRecord. 
@@ -176,6 +176,9 @@ Finally we need to consider the fact that TLD's with too few websites will give 
 ```
 
 ## 4. Results
+
+> Note: the results below are from running the code on a single .warc file. I am waiting on the results of the server for the complete dataset.
+
 Below is the table containing with the results. You can see that China has the fewest bootstrap users relatively, while India has the most. The Netherlands is somewhere in the middle. 
 
 
