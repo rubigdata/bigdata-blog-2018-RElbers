@@ -2,9 +2,8 @@ import java.io.{File, PrintWriter}
 
 import org.apache.commons.io.IOUtils
 import org.apache.hadoop.io.LongWritable
-import org.apache.spark.SparkContext
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.SparkSession
 import org.jwat.warc.WarcRecord
 import warcutils.WarcInputFormat
 
@@ -16,24 +15,22 @@ object EntryPoint {
     val master = "local"
 
     val outfile = "results.txt"
-//    val infile = "/data/public/common-crawl/crawl-data/CC-MAIN-2016-07/segments/*/warc/*.warc.gz"
-     val infile = "rsc/CC-MAIN-20170622114718-20170622134718-00000.warc"
+    val infile = "/data/public/common-crawl/crawl-data/CC-MAIN-2016-07/segments/*/warc/*.warc.gz"
+     // val infile = "rsc/CC-MAIN-20170622114718-20170622134718-00000.warc"
     // val infile = "rsc/CC-MAIN-20170622114718-20170622134718-00000_000001.warc"
     // val infile = "rsc/CC-MAIN-20170622114718-20170622134718-00000_000003.warc"
 
-    val spark = SparkSession.builder.
-      master(master)
-      .appName("rubd08_final_project")
-      .config("spark.app.id", "rubd08")
-      .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-      .config("spark.dynamicAllocation.enabled", "true")
-      .config("spark.shuffle.service.enabled", "true")
-      .config("spark.dynamicAllocation.minExecutors", "50")
-      .config("spark.dynamicAllocation.maxExecutors", "300")
-      .getOrCreate()
+    val conf = new SparkConf().setAppName("rubd08_final_project")
+      .set("spark.dynamicAllocation.enabled", "true")
+      .set("spark.shuffle.service.enabled", "true")
+      .set("spark.master", "local")
+      .set("spark.dynamicAllocation.minExecutors", "50")
+      .set("spark.dynamicAllocation.maxExecutors", "300")
+
+    val sc = new SparkContext(conf)
 
     try {
-      val result = start(infile, spark.sparkContext)
+      val result = start(infile, sc)
       val resultString = result.map(x => s""""${x._1}\" \t \"${x._2}"""").mkString("\n")
 
       // Print results
@@ -45,7 +42,7 @@ object EntryPoint {
       pw.close()
 
     } finally {
-      spark.stop()
+      sc.stop()
     }
   }
 
