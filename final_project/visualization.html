@@ -1,0 +1,53 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['geochart'],
+            // Note: you will need to get a mapsApiKey for your project.
+            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+            'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable([
+                ['Country', 'Ratio'],
+                ['Poland', 0.059880239520958084],
+                ['Japan', 0.012180267965895249],
+                ['Spain', 0.023255813953488372],
+                ['Russia', 0.025439127801332527],
+                ['China', 0.008928571428571428],
+                ['Romania', 0.06666666666666667],
+                ['Belgium', 0.018518518518518517],
+                ['Iran', 0.028846153846153848],
+                ['Canada', 0.04132231404958678],
+                ['Ukraine', 0.021929824561403508],
+                ['United Kingdom', 0.033566433566433566],
+                ['Czech Republic', 0.020833333333333332],
+                ['India', 0.0847457627118644],
+                ['Sweden', 0.019867549668874173],
+                ['Brazil', 0.07958477508650519],
+                ['Australia', 0.042704626334519574],
+                ['Austria', 0.0392156862745098],
+                ['Italy', 0.05420054200542006],
+                ['France', 0.036231884057971016],
+                ['Netherlands', 0.029914529914529916],
+                ['Switzerland', 0.032520325203252036],
+                ['European Union', 0.06451612903225806],
+                ['Germany', 0.021889400921658985],
+                ['Hungary', 0.017543859649122806]
+            ]);
+
+            var options = {};
+
+            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+<div id="regions_div" style="width: 1280px; height: 720px;"></div>
+</body>
+</html>
