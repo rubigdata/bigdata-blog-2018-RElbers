@@ -4,3 +4,4 @@
 
 [Assignment 4](assignment4.md)
 
+[Final Project](final_project.md)
