@@ -196,6 +196,7 @@ Finally we need to consider the fact that TLD's with too few websites will give 
 ## 4. Results
 
 > Note: the results below are from running the code on a single .warc file. I am waiting on the results of the server for the complete dataset.
+> Edit 2018-07-05: The server crashed with "Unsupported major.minor version 52.0" :( so no results for me. Also the map visualization only works in [GitHub Pages](https://rubigdata.github.io/bigdata-blog-2018-RElbers/final_project.html) and not in the standard GitHub markdown viewer .
 
 Below is the table containing with the results. You can see that China has the fewest bootstrap users relatively, while India has the most. The Netherlands is somewhere in the middle. 
 
